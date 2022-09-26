@@ -1,2 +1,2 @@
-# 16321 XDrive Power Play #
-This repository contains 16321 XDrive's code for the 2022 FTC Power Play Season
+# 16321 X-Drive Power Play #
+This repository contains 16321 X-Drive's code for the FIRST Tech Challenge 2022 Season: Power Play
