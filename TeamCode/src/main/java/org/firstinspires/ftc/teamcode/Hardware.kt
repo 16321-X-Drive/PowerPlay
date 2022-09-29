@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+import com.qualcomm.robotcore.hardware.ColorSensor
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import org.firstinspires.ftc.teamcode.lib.UseDevice
 import org.firstinspires.ftc.teamcode.lib.HardwareBase
@@ -18,4 +19,10 @@ class Hardware(opMode: LinearOpMode) : HardwareBase(opMode) {
 
     @UseDevice
     lateinit var rightBack: DcMotorEx
+
+    @UseDevice
+    lateinit var leftColor: ColorSensor
+
+    @UseDevice
+    lateinit var rightColor: ColorSensor
 }
