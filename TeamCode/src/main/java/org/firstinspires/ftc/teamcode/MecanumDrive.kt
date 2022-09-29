@@ -37,7 +37,7 @@ class MecanumDrive(hardware: Hardware) : Subsystem {
 
         leftFront.power = leftFrontPow
         rightFront.power = rightFrontPow
-        leftBack.power = leftBackPow
-        rightBack.power = rightBackPow
+        leftBack.power = leftBackPow / 2
+        rightBack.power = rightBackPow / 2
     }
 }
