@@ -1,17 +1,20 @@
 package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
+import org.firstinspires.ftc.teamcode.lib.ButtonToggler
 import org.firstinspires.ftc.teamcode.lib.OpModeBase
 import org.firstinspires.ftc.teamcode.lib.UseSubsystem
 import kotlin.math.atan2
 import kotlin.math.hypot
-import kotlin.math.sqrt
 
 fun square(power: Double) = power * power * power
 
 
 @TeleOp
 class MecanumDriveOpMode : OpModeBase() {
+
+    private var clawIsOpen: Boolean = true
+    private var xFirstPressed: Boolean = true
 
     @UseSubsystem
     lateinit var drive: MecanumDrive
@@ -21,6 +24,11 @@ class MecanumDriveOpMode : OpModeBase() {
 
     @UseSubsystem
     lateinit var distances: Distances
+
+    @UseSubsystem
+    lateinit var claw: Claw
+
+    private val clawButton = ButtonToggler()
 
     override fun coreLoop() {
         val angle = atan2(gamepad1.left_stick_y, -gamepad1.left_stick_x).toDouble()
@@ -34,13 +42,25 @@ class MecanumDriveOpMode : OpModeBase() {
 //        telemetry.addData("leftDomColor", color.readLeftColor().dominantColor())
 //        telemetry.addData("rightDomColor", color.readRightColor().dominantColor())
 
-        telemetry.addData("voltage (cm)", distances.frontDist.distanceCm)
-        telemetry.addData("voltage (in)", distances.frontDist.distanceIn)
+//        telemetry.addData("voltage (cm)", distances.frontDist.distanceCm)
+//        telemetry.addData("voltage (in)", distances.frontDist.distanceIn)
+
         telemetry.update()
 
-        //
-
         drive.drive(angle, square(power), gamepad1.right_stick_x.toDouble())
+
+        if(clawButton.shouldToggle(gamepad1.x)) {
+            clawIsOpen = !clawIsOpen
+        }
+
+
+        if(clawIsOpen) {
+            claw.openClaw()
+        } else {
+            claw.closeClaw()
+        }
+
+
     }
 
 }
