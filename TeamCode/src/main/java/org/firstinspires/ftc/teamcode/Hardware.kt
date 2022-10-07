@@ -30,15 +30,15 @@ class Hardware(opMode: LinearOpMode) : HardwareBase(opMode) {
     @UseDevice
     lateinit var rightColor: ColorSensor
 
-    @UseDevice
-    lateinit var distance: AnalogInput
+    @UseDevice("distance")
+    lateinit var rawDistance: AnalogInput
+
+    val distance by lazy { MaxbotixDistanceSensor(rawDistance) }
 
     @UseDevice
     lateinit var leftClaw: Servo
 
     @UseDevice
     lateinit var rightClaw: Servo
-
-    val dist by lazy { MaxbotixDistanceSensor(distance) }
 
 }

@@ -42,6 +42,9 @@ open class OpModeBase : LinearOpMode() {
             }
     }
 
+    val gamepad1Ex = GamepadEx(gamepad1)
+    val gamepad2Ex = GamepadEx(gamepad2)
+
     final override fun runOpMode() {
         initSubsystems()
 
@@ -50,7 +53,10 @@ open class OpModeBase : LinearOpMode() {
         waitForStart()
 
         while (opModeIsActive()) {
+            gamepad1Ex.tick()
+            gamepad2Ex.tick()
             coreLoop()
+            telemetry.update()
         }
     }
 
