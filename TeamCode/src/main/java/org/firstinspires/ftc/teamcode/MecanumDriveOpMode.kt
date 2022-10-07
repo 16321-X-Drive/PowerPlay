@@ -2,23 +2,17 @@ package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
-import org.firstinspires.ftc.teamcode.lib.UseSubsystem
 import kotlin.math.pow
 
 @TeleOp
 class MecanumDriveOpMode : LinearOpModeEx() {
 
-    @UseSubsystem
-    lateinit var drive: MecanumDrive
+    val hardware by lazy { Hardware(hardwareMap) }
 
-    @UseSubsystem
-    lateinit var color: ColorSensing
-
-    @UseSubsystem
-    lateinit var distances: Distances
-
-    @UseSubsystem
-    lateinit var claw: Claw
+    val drive by lazy { MecanumDrive(hardware) }
+    val color by lazy { ColorSensing(hardware) }
+    val distances by lazy { Distances(hardware) }
+    val claw by lazy { Claw(hardware) }
 
     override fun loop() {
         telemetry.addData("angle", gamepad1.leftStick.angle)

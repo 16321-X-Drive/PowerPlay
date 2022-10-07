@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.hardware.Servo
-import org.firstinspires.ftc.teamcode.lib.Subsystem
 
-class Claw(hardware: Hardware) : Subsystem {
+class Claw(hardware: Hardware) {
 
     private val leftClaw: Servo = hardware.leftClaw
     private val rightClaw: Servo = hardware.rightClaw

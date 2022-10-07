@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode
 
-import org.firstinspires.ftc.teamcode.lib.Subsystem
-
-class Distances(hardware: Hardware) : Subsystem {
+class Distances(hardware: Hardware) {
 
     val frontDist = hardware.distance
 

@@ -1,55 +1,16 @@
 package org.firstinspires.ftc.teamcode.lib
 
 import com.qualcomm.robotcore.eventloop.opmode.*
+import com.qualcomm.robotcore.hardware.HardwareMap
 import org.firstinspires.ftc.robotcore.external.Telemetry
-import org.firstinspires.ftc.teamcode.Hardware
 import org.reflections.Reflections
-import java.lang.reflect.Constructor
 import org.reflections.scanners.Scanners.*
-
-
-class NonSubsystemUseSubsystemException :
-    Exception("Only fields extending Subsystem may be annotated with @UseSubsystem.")
 
 open class LinearOpModeEx {
     lateinit var opMode: LinearOpMode
 
     private fun innerInit(opMode: LinearOpMode) {
         this.opMode = opMode
-    }
-
-    private val hardwareCache: MutableMap<Class<*>, HardwareBase> = mutableMapOf()
-
-    private fun getHardware(clazz: Class<*>): Hardware {
-        if (!hardwareCache.containsKey(clazz)) {
-            val constructor = clazz.getConstructor(LinearOpMode::class.java)
-            val newHardware = constructor.newInstance(opMode)
-            hardwareCache[clazz] = newHardware as HardwareBase
-        }
-
-        return hardwareCache[clazz] as Hardware
-    }
-
-    private fun <U> findValidConstructor(clazz: Class<U>): Constructor<U>? =
-        clazz.constructors.find {
-            it.parameterTypes.all { argType ->
-                Hardware::class.java.isAssignableFrom(argType)
-            }
-        } as Constructor<U>?
-
-    private fun initSubsystems() {
-        this::class.java.fields
-            .filter { it.getAnnotation(UseSubsystem::class.java) != null }
-            .forEach { field ->
-                if (!Subsystem::class.java.isAssignableFrom(field.type))
-                    throw NonSubsystemUseSubsystemException()
-
-                val constructor = findValidConstructor(field.type) ?: TODO()
-                val args = constructor.parameterTypes.map { getHardware(it) }
-                val newSubsystem = constructor.newInstance(*args.toTypedArray())
-
-                field.set(opMode, newSubsystem)
-            }
     }
 
     val gamepad1: GamepadEx by lazy { GamepadEx(opMode.gamepad1) }
@@ -75,10 +36,9 @@ open class LinearOpModeEx {
     val runtime: Double get() = opMode.runtime
 
     val telemetry: Telemetry get() = opMode.telemetry
+    val hardwareMap: HardwareMap get() = opMode.hardwareMap
 
     private fun innerRunOpMode() {
-        initSubsystems()
-
         init()
 
         waitForStart()

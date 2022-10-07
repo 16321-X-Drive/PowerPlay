@@ -1,10 +1,9 @@
 package org.firstinspires.ftc.teamcode
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple
-import org.firstinspires.ftc.teamcode.lib.Subsystem
 import kotlin.math.*
 
-class MecanumDrive(hardware: Hardware) : Subsystem {
+class MecanumDrive(hardware: Hardware) {
 
     private val leftFront = hardware.leftFront
     private val leftBack = hardware.leftBack
