@@ -15,5 +15,3 @@ open class HardwareBase(private val opMode: LinearOpMode) {
         }
     }
 }
-
-annotation class UseHardware
