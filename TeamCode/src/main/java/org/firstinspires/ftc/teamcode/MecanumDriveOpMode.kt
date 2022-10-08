@@ -13,18 +13,20 @@ class MecanumDriveOpMode : LinearOpModeEx() {
     val color by lazy { ColorSensing(hardware) }
     val distances by lazy { Distances(hardware) }
     val claw by lazy { Claw(hardware) }
+    val gyro by lazy { Gyro(hardware, this) }
+
+    override fun init() {
+        gyro.waitForCalibration(debug = true)
+    }
 
     override fun loop() {
         telemetry.addData("angle", gamepad1.leftStick.angle)
         telemetry.addData("power", gamepad1.leftStick.dist)
-        telemetry.addData("turnPower", gamepad1.rightStick.x)
-        telemetry.addData("leftColor", color.readLeftColor())
-        telemetry.addData("rightColor", color.readRightColor())
-        telemetry.addData("leftDomColor", color.readLeftColor().dominantColor())
-        telemetry.addData("rightDomColor", color.readRightColor().dominantColor())
+        telemetry.addData("turn power", gamepad1.rightStick.x)
+        telemetry.addData("robot heading", gyro.robotHeading)
 
         drive.drive(
-            gamepad1.leftStick.angle,
+            gamepad1.leftStick.angle - gyro.robotHeading,
             gamepad1.leftStick.dist.pow(3),
             gamepad1.rightStick.x
         )

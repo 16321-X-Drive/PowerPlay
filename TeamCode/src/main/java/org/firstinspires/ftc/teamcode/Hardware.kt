@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode
 
+import com.qualcomm.hardware.bosch.BNO055IMU
 import com.qualcomm.robotcore.hardware.AnalogInput
 import com.qualcomm.robotcore.hardware.ColorSensor
 import com.qualcomm.robotcore.hardware.DcMotorEx
@@ -14,12 +15,14 @@ class Hardware(hm: HardwareMap) {
     val rightFront = hm.get(DcMotorEx::class.java, "rightFront")!!
     val rightBack = hm.get(DcMotorEx::class.java, "rightBack")!!
 
+    val leftClaw = hm.get(Servo::class.java, "leftClaw")!!
+    val rightClaw = hm.get(Servo::class.java, "rightClaw")!!
+
     val leftColor = hm.get(ColorSensor::class.java, "leftColor")!!
     val rightColor = hm.get(ColorSensor::class.java, "rightColor")!!
 
     private val rawDistance = hm.get(AnalogInput::class.java, "distance")!!
     val distance = MaxbotixDistanceSensor(rawDistance)
 
-    val leftClaw = hm.get(Servo::class.java, "leftClaw")!!
-    val rightClaw = hm.get(Servo::class.java, "rightClaw")!!
+    val imu = hm.get(BNO055IMU::class.java, "imu")!!
 }
