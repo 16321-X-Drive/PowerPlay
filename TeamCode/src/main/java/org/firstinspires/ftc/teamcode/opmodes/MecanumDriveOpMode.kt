@@ -1,7 +1,9 @@
-package org.firstinspires.ftc.teamcode
+package org.firstinspires.ftc.teamcode.opmodes
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
+import org.firstinspires.ftc.teamcode.hardware.Hardware
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
+import org.firstinspires.ftc.teamcode.subsytems.*
 import kotlin.math.pow
 
 @TeleOp

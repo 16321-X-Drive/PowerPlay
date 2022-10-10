@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.teamcode
+package org.firstinspires.ftc.teamcode.subsytems
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple
+import org.firstinspires.ftc.teamcode.hardware.Hardware
 import kotlin.math.*
 
 class MecanumDrive(hardware: Hardware) {

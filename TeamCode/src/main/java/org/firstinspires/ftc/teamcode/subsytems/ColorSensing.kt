@@ -1,4 +1,6 @@
-package org.firstinspires.ftc.teamcode
+package org.firstinspires.ftc.teamcode.subsytems
+
+import org.firstinspires.ftc.teamcode.hardware.Hardware
 
 data class Color(val red: Int, val green: Int, val blue: Int) {
 

@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.teamcode
+package org.firstinspires.ftc.teamcode.subsytems
 
 import com.qualcomm.hardware.bosch.BNO055IMU
+import org.firstinspires.ftc.teamcode.hardware.Hardware
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
 
 class Gyro(hardware: Hardware, private val opMode: LinearOpModeEx) {
