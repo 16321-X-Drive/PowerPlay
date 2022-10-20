@@ -35,9 +35,9 @@ class MecanumDrive(hardware: Hardware) {
             rightBackPow /= power + turn
         }
 
-        leftFront.power = leftFrontPow
-        rightFront.power = rightFrontPow
-        leftBack.power = leftBackPow / 2
-        rightBack.power = rightBackPow / 2
+        leftFront.power = leftFrontPow / 2
+        rightFront.power = rightFrontPow / 2
+        leftBack.power = leftBackPow
+        rightBack.power = rightBackPow
     }
 }
