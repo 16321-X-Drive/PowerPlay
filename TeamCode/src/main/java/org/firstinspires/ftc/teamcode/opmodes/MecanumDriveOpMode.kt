@@ -1,15 +1,18 @@
 package org.firstinspires.ftc.teamcode.opmodes
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.hardware.Hardware
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
 import org.firstinspires.ftc.teamcode.subsytems.*
 import kotlin.math.pow
 
-@TeleOp
 class MecanumDriveOpMode : LinearOpModeEx() {
 
-    val hardware by lazy { Hardware(hardwareMap) }
+    @TeleOp
+    object MecanumDrive : LinearOpMode() {
+        override fun runOpMode() = MecanumDriveOpMode().runOpMode(this)
+    }
 
     val drive by lazy { MecanumDrive(hardware) }
     val color by lazy { ColorSensing(hardware) }

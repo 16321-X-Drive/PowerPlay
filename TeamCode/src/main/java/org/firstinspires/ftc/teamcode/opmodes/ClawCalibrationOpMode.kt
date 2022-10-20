@@ -1,13 +1,15 @@
 package org.firstinspires.ftc.teamcode.opmodes
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
-import org.firstinspires.ftc.teamcode.hardware.Hardware
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
 
-@TeleOp
-class ClawCalibration : LinearOpModeEx() {
+class ClawCalibrationOpMode : LinearOpModeEx() {
 
-    val hardware by lazy { Hardware(hardwareMap) }
+    @TeleOp
+    object ClawCalibration : LinearOpMode() {
+        override fun runOpMode() = ClawCalibrationOpMode().runOpMode(this)
+    }
 
     override fun loop() {
         telemetry.addData("left claw", gamepad1.leftTrigger)
