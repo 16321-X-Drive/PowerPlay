@@ -19,8 +19,8 @@ class MecanumDrive(hardware: Hardware) {
     fun drive(theta: Double, power: Double, turn: Double) {
         // Taken from: https://www.youtube.com/watch?v=gnSW2QpkGXQ
 
-        val sin = sin(theta - PI / 4)
-        val cos = cos(theta - PI / 4)
+        val sin = sin(theta - PI / 4 + PI)
+        val cos = cos(theta - PI / 4 + PI)
         val max = abs(sin).coerceAtLeast(abs(cos))
 
         var leftFrontPow = power * cos / max - turn
@@ -35,9 +35,9 @@ class MecanumDrive(hardware: Hardware) {
             rightBackPow /= power + turn
         }
 
-        leftFront.power = leftFrontPow / 2
-        rightFront.power = rightFrontPow / 2
-        leftBack.power = leftBackPow
-        rightBack.power = rightBackPow
+        leftFront.power = leftFrontPow
+        rightFront.power = rightFrontPow
+        leftBack.power = leftBackPow / 2
+        rightBack.power = rightBackPow / 2
     }
 }

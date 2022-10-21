@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
 class ClawCalibrationOpMode : LinearOpModeEx() {
 
     @TeleOp
-    object ClawCalibration : LinearOpMode() {
+    class ClawCalibration : LinearOpMode() {
         override fun runOpMode() = ClawCalibrationOpMode().runOpMode(this)
     }
 

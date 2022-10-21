@@ -17,6 +17,9 @@ class Hardware(hm: HardwareMap) {
     val leftClaw = hm.get(Servo::class.java, "leftClaw")!!
     val rightClaw = hm.get(Servo::class.java, "rightClaw")!!
 
+    val leftLift = hm.get(DcMotorEx::class.java, "leftLift")!!
+    val rightLift = hm.get(DcMotorEx::class.java, "rightLift")!!
+
     val leftColor = hm.get(ColorSensor::class.java, "leftColor")!!
     val rightColor = hm.get(ColorSensor::class.java, "rightColor")!!
 
