@@ -43,15 +43,23 @@ open class LinearOpModeEx {
 
         waitForStart()
 
+        once()
+
         while (isActive) {
             gamepad1.tick()
             gamepad2.tick()
             loop()
             opMode.telemetry.update()
         }
+
+        finish()
     }
 
     open fun init() {}
 
+    open fun once() {}
+
     open fun loop() {}
+
+    open fun finish() {}
 }

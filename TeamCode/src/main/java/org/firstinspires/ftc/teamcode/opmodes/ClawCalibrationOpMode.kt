@@ -15,7 +15,7 @@ class ClawCalibrationOpMode : LinearOpModeEx() {
         telemetry.addData("left claw", gamepad1.leftTrigger)
         telemetry.addData("right claw", gamepad2.rightTrigger)
 
-        hardware.leftClaw.position = gamepad1.leftTrigger
-        hardware.rightClaw.position = gamepad1.rightTrigger
+//        hardware.leftClaw.position = gamepad1.leftTrigger
+//        hardware.rightClaw.position = gamepad1.rightTrigger
     }
 }

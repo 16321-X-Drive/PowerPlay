@@ -4,6 +4,6 @@ import org.firstinspires.ftc.teamcode.hardware.Hardware
 
 class Distances(hardware: Hardware) {
 
-    val frontDist = hardware.distance
+//    val frontDist = hardware.distance
 
 }

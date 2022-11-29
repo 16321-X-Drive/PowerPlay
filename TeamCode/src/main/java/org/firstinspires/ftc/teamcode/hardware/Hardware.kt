@@ -9,13 +9,15 @@ import com.qualcomm.robotcore.hardware.Servo
 
 class Hardware(hm: HardwareMap) {
 
+    val map = hm
+
     val leftFront = hm.get(DcMotorEx::class.java, "leftFront")!!
     val leftBack = hm.get(DcMotorEx::class.java, "leftBack")!!
     val rightFront = hm.get(DcMotorEx::class.java, "rightFront")!!
     val rightBack = hm.get(DcMotorEx::class.java, "rightBack")!!
 
-    val leftClaw = hm.get(Servo::class.java, "leftClaw")!!
-    val rightClaw = hm.get(Servo::class.java, "rightClaw")!!
+//    val leftClaw = hm.get(Servo::class.java, "leftClaw")!!
+//    val rightClaw = hm.get(Servo::class.java, "rightClaw")!!
 
     val leftLift = hm.get(DcMotorEx::class.java, "leftLift")!!
     val rightLift = hm.get(DcMotorEx::class.java, "rightLift")!!
@@ -23,8 +25,8 @@ class Hardware(hm: HardwareMap) {
     val leftColor = hm.get(ColorSensor::class.java, "leftColor")!!
     val rightColor = hm.get(ColorSensor::class.java, "rightColor")!!
 
-    private val rawDistance = hm.get(AnalogInput::class.java, "distance")!!
-    val distance = MaxbotixDistanceSensor(rawDistance)
+//    private val rawDistance = hm.get(AnalogInput::class.java, "distance")!!
+//    val distance = MaxbotixDistanceSensor(rawDistance)
 
     val imu = hm.get(BNO055IMU::class.java, "imu")!!
 }

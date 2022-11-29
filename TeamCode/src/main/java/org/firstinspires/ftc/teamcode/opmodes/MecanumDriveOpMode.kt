@@ -12,7 +12,6 @@ class MecanumDriveOpMode : LinearOpModeEx() {
     @TeleOp
     class MecanumDrive : LinearOpMode() {
         override fun runOpMode() = MecanumDriveOpMode().runOpMode(this)
-
     }
 
     val drive by lazy { MecanumDrive(hardware) }
