@@ -11,7 +11,7 @@ import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
-class PowerPlayPipeline(private val area: Rect, private val telemetry: Telemetry?) : OpenCvPipeline() {
+class PowerPlayPipeline(private val area: Rect) : OpenCvPipeline() {
 
     companion object {
         val RED = Scalar(255.0, 0.0, 0.0)

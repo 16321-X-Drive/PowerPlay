@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
+import org.firstinspires.ftc.teamcode.subsytems.Claw
 
 class ClawCalibrationOpMode : LinearOpModeEx() {
 
@@ -11,11 +12,13 @@ class ClawCalibrationOpMode : LinearOpModeEx() {
         override fun runOpMode() = ClawCalibrationOpMode().runOpMode(this)
     }
 
-    override fun loop() {
-        telemetry.addData("left claw", gamepad1.leftTrigger)
-        telemetry.addData("right claw", gamepad2.rightTrigger)
+    val claw by lazy { Claw(hardware) }
 
-//        hardware.leftClaw.position = gamepad1.leftTrigger
-//        hardware.rightClaw.position = gamepad1.rightTrigger
+    override fun loop() {
+        telemetry.addData("claw is open", claw.isOpen)
+
+        if (gamepad1.x.justPressed) {
+            claw.toggle()
+        }
     }
 }

@@ -5,23 +5,20 @@ import org.firstinspires.ftc.teamcode.hardware.Hardware
 
 class Claw(hardware: Hardware) {
 
-//    private val leftClaw: Servo = hardware.leftClaw
-//    private val rightClaw: Servo = hardware.rightClaw
-//
-//    var isOpen = false
-//        set(value) {
-//            field = value
-//            if (field) {
-//                leftClaw.position = 0.6
-//                rightClaw.position = 0.3
-//            } else {
-//                leftClaw.position = 0.8
-//                rightClaw.position = 0.1
-//            }
-//        }
+    private val claw: Servo = hardware.claw
+
+    var isOpen = false
+        set(value) {
+            field = value
+            if (field) {
+                claw.position = 0.4
+            } else {
+                claw.position = 0.55
+            }
+        }
 
     fun toggle() {
-//        isOpen = !isOpen
+        isOpen = !isOpen
     }
 
 }

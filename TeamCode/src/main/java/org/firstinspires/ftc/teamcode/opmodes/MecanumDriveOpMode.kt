@@ -33,9 +33,14 @@ class MecanumDriveOpMode : LinearOpModeEx() {
         telemetry.addData("left color", color.readLeftColor().dominantColor())
         telemetry.addData("right color", color.readRightColor().dominantColor())
 
+        telemetry.addData("distance 1", distances.distance1.distanceIn)
+        telemetry.addData("distance 2", distances.distance2.distanceIn)
+        telemetry.addData("distance 3", distances.distance3.distanceIn)
+        telemetry.addData("distance 4", distances.distance4.distanceIn)
+
         drive.drive(
-            gamepad1.leftStick.angle - gyro.robotHeading,
-//            gamepad1.leftStick.angle,
+//            gamepad1.leftStick.angle - gyro.robotHeading,
+            gamepad1.leftStick.angle,
             gamepad1.leftStick.dist.pow(3),
             gamepad1.rightStick.x
         )
@@ -45,6 +50,8 @@ class MecanumDriveOpMode : LinearOpModeEx() {
         if (gamepad1.x.justPressed) {
             claw.toggle()
         }
+
+        distances.keepHeading(gyro.robotHeading)
     }
 
 }

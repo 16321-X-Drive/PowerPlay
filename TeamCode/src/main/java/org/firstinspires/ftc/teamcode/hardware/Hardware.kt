@@ -16,8 +16,7 @@ class Hardware(hm: HardwareMap) {
     val rightFront = hm.get(DcMotorEx::class.java, "rightFront")!!
     val rightBack = hm.get(DcMotorEx::class.java, "rightBack")!!
 
-//    val leftClaw = hm.get(Servo::class.java, "leftClaw")!!
-//    val rightClaw = hm.get(Servo::class.java, "rightClaw")!!
+    val claw = hm.get(Servo::class.java, "claw")!!
 
     val leftLift = hm.get(DcMotorEx::class.java, "leftLift")!!
     val rightLift = hm.get(DcMotorEx::class.java, "rightLift")!!
@@ -25,8 +24,17 @@ class Hardware(hm: HardwareMap) {
     val leftColor = hm.get(ColorSensor::class.java, "leftColor")!!
     val rightColor = hm.get(ColorSensor::class.java, "rightColor")!!
 
-//    private val rawDistance = hm.get(AnalogInput::class.java, "distance")!!
-//    val distance = MaxbotixDistanceSensor(rawDistance)
+    val lowDistServo = hm.get(Servo::class.java, "lowDist")!!
+    val highDistServo = hm.get(Servo::class.java, "highDist")!!
+
+    private val rawDistance1 = hm.get(AnalogInput::class.java, "distance1")!!
+    val distance1 = MaxbotixDistanceSensor(rawDistance1)
+    private val rawDistance2 = hm.get(AnalogInput::class.java, "distance2")!!
+    val distance2 = MaxbotixDistanceSensor(rawDistance2)
+    private val rawDistance3 = hm.get(AnalogInput::class.java, "distance3")!!
+    val distance3 = MaxbotixDistanceSensor(rawDistance3)
+    private val rawDistance4 = hm.get(AnalogInput::class.java, "distance4")!!
+    val distance4 = MaxbotixDistanceSensor(rawDistance4)
 
     val imu = hm.get(BNO055IMU::class.java, "imu")!!
 }

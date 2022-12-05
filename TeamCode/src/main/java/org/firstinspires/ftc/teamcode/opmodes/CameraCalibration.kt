@@ -18,7 +18,7 @@ class CameraCalibrationOpMode : LinearOpModeEx() {
         val CAMERA_AREA = Rect(200, 50, 30, 15)
     }
 
-    val detector: CameraDetector by lazy { CameraDetector(hardware, telemetry) }
+    val detector: CameraDetector by lazy { CameraDetector(hardware) }
 
     override fun init() {
         telemetry.addLine("init")

@@ -12,7 +12,7 @@ enum class Decision {
     Red, Green, Blue
 }
 
-class CameraDetector(val hardware: Hardware, val telemetry: Telemetry) {
+class CameraDetector(val hardware: Hardware) {
 
     private lateinit var pipeline: PowerPlayPipeline
     private lateinit var webcam: OpenCvWebcam
@@ -32,7 +32,7 @@ class CameraDetector(val hardware: Hardware, val telemetry: Telemetry) {
             ), cameraMonitorViewId
         )
 
-        pipeline = PowerPlayPipeline(CameraCalibrationOpMode.CAMERA_AREA, telemetry)
+        pipeline = PowerPlayPipeline(CameraCalibrationOpMode.CAMERA_AREA)
 
         webcam.openCameraDevice()
         webcam.setPipeline(pipeline)
