@@ -22,7 +22,7 @@ class AutoMecanumDrive(hardware: Hardware) {
         setMode(RunMode.STOP_AND_RESET_ENCODER)
     }
 
-    private fun setMode(mode: RunMode) {
+    fun setMode(mode: RunMode) {
         leftFront.mode = mode
         leftBack.mode = mode
         rightFront.mode = mode
@@ -64,7 +64,7 @@ class AutoMecanumDrive(hardware: Hardware) {
 
         leftFront.power = leftFrontPow
         rightFront.power = rightFrontPow
-        leftBack.power = leftBackPow / 2
-        rightBack.power = rightBackPow / 2
+        leftBack.power = leftBackPow
+        rightBack.power = rightBackPow
     }
 }

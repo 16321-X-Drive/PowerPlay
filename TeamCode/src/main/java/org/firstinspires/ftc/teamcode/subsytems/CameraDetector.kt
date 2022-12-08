@@ -4,6 +4,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName
 import org.firstinspires.ftc.teamcode.hardware.Hardware
 import org.firstinspires.ftc.teamcode.opmodes.CameraCalibrationOpMode
+import org.opencv.core.Rect
 import org.openftc.easyopencv.OpenCvCameraFactory
 import org.openftc.easyopencv.OpenCvCameraRotation
 import org.openftc.easyopencv.OpenCvWebcam
@@ -12,7 +13,7 @@ enum class Decision {
     Red, Green, Blue
 }
 
-class CameraDetector(val hardware: Hardware) {
+class CameraDetector(val hardware: Hardware, val rect: Rect) {
 
     private lateinit var pipeline: PowerPlayPipeline
     private lateinit var webcam: OpenCvWebcam
@@ -32,7 +33,7 @@ class CameraDetector(val hardware: Hardware) {
             ), cameraMonitorViewId
         )
 
-        pipeline = PowerPlayPipeline(CameraCalibrationOpMode.CAMERA_AREA)
+        pipeline = PowerPlayPipeline(rect)
 
         webcam.openCameraDevice()
         webcam.setPipeline(pipeline)

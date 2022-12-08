@@ -5,17 +5,16 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
 import org.firstinspires.ftc.teamcode.opmodes.CameraCalibrationOpMode
-import org.firstinspires.ftc.teamcode.subsytems.AutoMecanumDrive
-import org.firstinspires.ftc.teamcode.subsytems.CameraDetector
-import org.firstinspires.ftc.teamcode.subsytems.Decision
+import org.firstinspires.ftc.teamcode.subsytems.*
 import org.opencv.core.Rect
 import kotlin.math.PI
+import kotlin.math.abs
 
-class RightAuto : LinearOpModeEx() {
+class SimpleRightAuto : LinearOpModeEx() {
 
     @Autonomous
-    class Right : LinearOpMode() {
-        override fun runOpMode() = RightAuto().runOpMode(this)
+    class SimpleRight : LinearOpMode() {
+        override fun runOpMode() = SimpleRightAuto().runOpMode(this)
     }
 
     companion object {
@@ -23,8 +22,9 @@ class RightAuto : LinearOpModeEx() {
     }
 
     val detector: CameraDetector by lazy { CameraDetector(hardware, CAMERA_AREA) }
-
-    val drive: AutoMecanumDrive by lazy { AutoMecanumDrive(hardware) }
+    val distances: Distances by lazy { Distances(hardware) }
+    val gyro: Gyro by lazy { Gyro(hardware, this, 0.0) }
+    val drive: MecanumDrive by lazy { MecanumDrive(hardware) }
 
     override fun init() {
         telemetry.addLine("init")
@@ -34,20 +34,32 @@ class RightAuto : LinearOpModeEx() {
         telemetry.update()
     }
 
+    fun driveToDistY(dist: Double, theta: Double = 0.0, power: Double = 0.75) {
+        drive.drive(theta, power, 0.0)
+        while (!isStopRequested && abs(distances.distance2.distanceIn - dist) < 1.0) {
+            distances.keepHeading(gyro.robotHeading)
+            telemetry.addData("dist y", distances.distance2.distanceIn)
+            telemetry.update()
+        }
+        drive.drive(0.0, 0.0, 0.0)
+    }
+
     override fun once() {
         val decision = detector.readDecision()
         detector.close()
         telemetry.addData("decision", decision)
         telemetry.update()
 
-        val p = 0.5
+//        val p = 0.5
+//
+//        drive.driveAndWait(3000.0, 0.0, p, 0.0)
 
-        drive.driveAndWait(3000.0, 0.0, p, 0.0)
+        driveToDistY(24.0)
 
         when (decision) {
             Decision.Red -> {
                 // left
-                drive.driveAndWait(2000.0, PI / 2, p, 0.0)
+//                drive.driveAndWait(2000.0, PI / 2, p, 0.0)
             }
             Decision.Blue -> {
                 // middle
@@ -55,9 +67,11 @@ class RightAuto : LinearOpModeEx() {
             }
             Decision.Green -> {
                 // right
-                drive.driveAndWait(2000.0, -PI / 2, p, 0.0)
+//                drive.driveAndWait(2000.0, -PI / 2, p, 0.0)
             }
         }
+
+        while (!isStopRequested) idle()
     }
 
 }
