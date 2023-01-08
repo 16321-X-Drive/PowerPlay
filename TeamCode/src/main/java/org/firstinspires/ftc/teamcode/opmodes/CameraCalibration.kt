@@ -15,7 +15,7 @@ class CameraCalibrationOpMode : LinearOpModeEx() {
     }
 
     companion object {
-        val CAMERA_AREA = Rect(200, 40, 30, 15)
+        val CAMERA_AREA = Rect(140, 170, 30, 15)
     }
 
     val detector: CameraDetector by lazy { CameraDetector(hardware, CAMERA_AREA) }

@@ -22,6 +22,8 @@ class DistanceSensorTestsOpMode : LinearOpModeEx() {
 
     override fun loop() {
         telemetry.addData("heading", gyro.robotHeading)
+        telemetry.addData("low pos", distances.lowServo.position)
+        telemetry.addData("high pos", distances.highServo.position)
 
         distances.keepHeading(gyro.robotHeading)
     }

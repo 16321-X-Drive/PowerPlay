@@ -11,9 +11,9 @@ class Claw(hardware: Hardware) {
         set(value) {
             field = value
             if (field) {
-                claw.position = 0.4
+                claw.position = 0.25
             } else {
-                claw.position = 0.55
+                claw.position = 0.35
             }
         }
 

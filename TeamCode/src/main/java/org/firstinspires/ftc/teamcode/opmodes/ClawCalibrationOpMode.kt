@@ -17,7 +17,7 @@ class ClawCalibrationOpMode : LinearOpModeEx() {
     override fun loop() {
         telemetry.addData("claw is open", claw.isOpen)
 
-        if (gamepad1.x.justPressed) {
+        if (gamepad1.x.justPressed ) {
             claw.toggle()
         }
     }

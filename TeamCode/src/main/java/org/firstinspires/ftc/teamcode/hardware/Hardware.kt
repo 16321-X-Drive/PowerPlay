@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor
 import com.qualcomm.robotcore.hardware.DcMotorEx
 import com.qualcomm.robotcore.hardware.HardwareMap
 import com.qualcomm.robotcore.hardware.Servo
+import com.qualcomm.robotcore.hardware.TouchSensor
 
 class Hardware(hm: HardwareMap) {
 
@@ -20,9 +21,7 @@ class Hardware(hm: HardwareMap) {
 
     val leftLift = hm.get(DcMotorEx::class.java, "leftLift")!!
     val rightLift = hm.get(DcMotorEx::class.java, "rightLift")!!
-
-    val leftColor = hm.get(ColorSensor::class.java, "leftColor")!!
-    val rightColor = hm.get(ColorSensor::class.java, "rightColor")!!
+    val resetLift = hm.get(TouchSensor::class.java, "liftReset")!!
 
     val lowDistServo = hm.get(Servo::class.java, "lowDist")!!
     val highDistServo = hm.get(Servo::class.java, "highDist")!!

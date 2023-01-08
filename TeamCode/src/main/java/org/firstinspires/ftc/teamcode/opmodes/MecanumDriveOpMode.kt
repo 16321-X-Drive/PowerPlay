@@ -17,37 +17,32 @@ class MecanumDriveOpMode : LinearOpModeEx() {
 
     val drive by lazy { MecanumDrive(hardware) }
     val lift by lazy { Lift(hardware) }
-
-    //    val color by lazy { ColorSensing(hardware) }
-    val distances by lazy { Distances(hardware) }
     val claw by lazy { Claw(hardware) }
-//    val gyro by lazy { Gyro(hardware, this) }
-
-    override fun init() {
-//        gyro.waitForCalibration(debug = true)
-    }
 
     override fun loop() {
-        telemetry.addData("angle", gamepad1.leftStick.angle)
-        telemetry.addData("power", gamepad1.leftStick.dist)
-        telemetry.addData("turn power", gamepad1.rightStick.x)
-        telemetry.addData("lift", lift.height)
-        telemetry.addData("claw", claw.isOpen)
-//        telemetry.addData("robot heading", gyro.robotHeading)
-//        telemetry.addData("left color", color.readLeftColor().dominantColor())
-//        telemetry.addData("right color", color.readRightColor().dominantColor())
-
-//        telemetry.addData("distance 1", distances.distance1.distanceIn)
-//        telemetry.addData("distance 2", distances.distance2.distanceIn)
-//        telemetry.addData("distance 3", distances.distance3.distanceIn)
-//        telemetry.addData("distance 4", distances.distance4.distanceIn)
+        /*
+        x - rotate left
+        b - rotate right
+        left/right bumpers - rotate slower
+        left trigger - forward slow
+        right trigger - backward slow
+        dpad - move that direction
+         */
 
         when {
-            gamepad1.leftBumper.isDown -> drive.drive(0.0, 0.0, -0.5)
-            gamepad1.rightBumper.isDown -> drive.drive(0.0, 0.0, 0.5)
-            gamepad1.leftTrigger != 0.0 -> drive.drive(0.0, gamepad1.leftTrigger * 0.5, 0.0)
+            gamepad1.leftBumper.isDown && !gamepad1.rightBumper.isDown -> drive.drive(0.0, 0.0, -0.45)
+            gamepad1.rightBumper.isDown && !gamepad1.leftBumper.isDown -> drive.drive(0.0, 0.0, 0.45)
+            gamepad1.x.isDown -> drive.drive(0.0, 0.0, -0.25)
+            gamepad1.b.isDown -> drive.drive(0.0, 0.0, 0.25)
+            gamepad1.leftTrigger != 0.0 -> drive.drive(PI/2, gamepad1.leftTrigger * 0.5, 0.0)
+            gamepad1.rightTrigger != 0.0 -> drive.drive(PI/2, gamepad1.rightTrigger * -0.5, 0.0)
+            gamepad1.dpadUp.isDown -> drive.drive(PI/2, 0.5, 0.0)
+            gamepad1.dpadLeft.isDown -> drive.drive(PI, 0.5, 0.0)
+            gamepad1.dpadDown.isDown -> drive.drive(3*PI/2, 0.5, 0.0)
+            gamepad1.dpadRight.isDown -> drive.drive(0.0, 0.5, 0.0)
             else -> {
-                val speed = 1.0 - (gamepad1.rightTrigger * 0.75)
+                var speed = 1.0 - (if (gamepad1.leftBumper.isDown && gamepad1.rightBumper.isDown) 0.75 else 0.5)
+                speed *= if (lift.height == Lift.Height.HighJunction) 0.8 else 1.0
                 drive.drive(
 //            gamepad1.leftStick.angle - gyro.robotHeading,
                     gamepad1.leftStick.angle,
@@ -57,17 +52,28 @@ class MecanumDriveOpMode : LinearOpModeEx() {
             }
         }
 
-        if (gamepad2.dpadDown.justPressed) {
-            lift.height = lift.height.down()
-        } else if (gamepad2.dpadUp.justPressed) {
-            lift.height = lift.height.up()
+        when {
+            gamepad2.dpadDown.justPressed -> lift.height = Lift.Height.Down
+            gamepad2.dpadRight.justPressed -> lift.height = Lift.Height.MediumJunction
+            gamepad2.dpadLeft.justPressed -> lift.height = Lift.Height.LowJunction
+            gamepad2.dpadUp.justPressed -> lift.height = Lift.Height.HighJunction
+            gamepad2.a.justPressed -> lift.height = Lift.Height.TwoCone
+            gamepad2.x.justPressed -> lift.height = Lift.Height.ThreeCone
+            gamepad2.b.justPressed -> lift.height = Lift.Height.FourCone
+            gamepad2.y.justPressed -> lift.height = Lift.Height.FiveCone
         }
+        lift.offset += gamepad2.leftStick.y * 8
+        telemetry.addData("offset", lift.offset)
+        lift.tick()
 
         if (gamepad2.rightBumper.justPressed) {
             claw.toggle()
         }
 
-//        distances.keepHeading(gyro.robotHeading)
+        telemetry.addData("reset", lift.reset.isPressed)
+        if (gamepad2.leftBumper.justPressed) {
+            lift.reset()
+        }
     }
 
 }

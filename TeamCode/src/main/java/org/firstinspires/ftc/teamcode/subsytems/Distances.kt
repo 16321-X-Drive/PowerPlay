@@ -14,15 +14,15 @@ class Distances(hardware: Hardware) {
     }
 
     companion object {
-        const val LOW_0_DEGREES = 0.478
-        const val LOW_45_DEGREES = 0.649
-        const val LOW_MIN_DEGREES = 0.257
-        const val LOW_MAX_DEGREES = 0.754
+        const val LOW_0_DEGREES = 0.211
+        const val LOW_45_DEGREES = 0.0485
+        const val LOW_MIN_DEGREES = 0.0
+        const val LOW_MAX_DEGREES = 0.38
 
-        const val HIGH_0_DEGREES = 0.503
-        const val HIGH_45_DEGREES = 0.345
-        const val HIGH_MIN_DEGREES = 0.289
-        const val HIGH_MAX_DEGREES = 0.783
+        const val HIGH_0_DEGREES = 0.2935
+        const val HIGH_45_DEGREES = 0.460
+        const val HIGH_MIN_DEGREES = 0.0952
+        const val HIGH_MAX_DEGREES = 0.550
 
     }
 

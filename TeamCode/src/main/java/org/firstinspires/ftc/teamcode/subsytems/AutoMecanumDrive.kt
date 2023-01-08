@@ -32,8 +32,10 @@ class AutoMecanumDrive(hardware: Hardware) {
     fun isBusy() = leftFront.isBusy
 
     fun driveAndWait(dist: Double, theta: Double, power: Double, turn: Double = 0.0) {
+        setMode(RunMode.STOP_AND_RESET_ENCODER)
         drive(dist, theta, power, turn)
         setMode(RunMode.RUN_TO_POSITION)
+        drive(dist, theta, power, turn)
         while (isBusy()) Thread.yield()
         setMode(RunMode.STOP_AND_RESET_ENCODER)
     }
@@ -57,10 +59,10 @@ class AutoMecanumDrive(hardware: Hardware) {
             rightBackPow /= power + turn
         }
 
-        leftFront.targetPosition = (dist * leftFrontPow).toInt()
-        rightFront.targetPosition = (dist * rightFrontPow).toInt()
-        leftBack.targetPosition = (dist * leftBackPow).toInt()
-        rightBack.targetPosition = (dist * rightBackPow).toInt()
+        leftFront.targetPosition = (dist * 100 * leftFrontPow).toInt()
+        rightFront.targetPosition = (dist * 100 * rightFrontPow).toInt()
+        leftBack.targetPosition = (dist * 100 * leftBackPow).toInt()
+        rightBack.targetPosition = (dist * 100 * rightBackPow).toInt()
 
         leftFront.power = leftFrontPow
         rightFront.power = rightFrontPow

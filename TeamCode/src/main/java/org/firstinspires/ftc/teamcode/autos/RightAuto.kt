@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.autos
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
@@ -14,6 +15,7 @@ import kotlin.math.PI
 class RightAuto : LinearOpModeEx() {
 
     @Autonomous
+    @Disabled
     class Right : LinearOpMode() {
         override fun runOpMode() = RightAuto().runOpMode(this)
     }
