@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.hardware.Hardware
 open class LinearOpModeEx {
     lateinit var opMode: LinearOpMode
 
-
     val gamepad1: GamepadEx by lazy { GamepadEx(opMode.gamepad1) }
     val gamepad2: GamepadEx by lazy { GamepadEx(opMode.gamepad2) }
 
@@ -45,7 +44,7 @@ open class LinearOpModeEx {
 
         once()
 
-        while (isActive) {
+        while (isActive && !isAuto()) {
             gamepad1.tick()
             gamepad2.tick()
             loop()
@@ -54,6 +53,8 @@ open class LinearOpModeEx {
 
         finish()
     }
+
+    open fun isAuto() = false
 
     open fun init() {}
 

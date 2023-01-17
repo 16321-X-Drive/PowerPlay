@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU
 import com.qualcomm.robotcore.hardware.AnalogInput
 import com.qualcomm.robotcore.hardware.ColorSensor
 import com.qualcomm.robotcore.hardware.DcMotorEx
+import com.qualcomm.robotcore.hardware.DistanceSensor
 import com.qualcomm.robotcore.hardware.HardwareMap
 import com.qualcomm.robotcore.hardware.Servo
 import com.qualcomm.robotcore.hardware.TouchSensor
@@ -34,6 +35,8 @@ class Hardware(hm: HardwareMap) {
     val distance3 = MaxbotixDistanceSensor(rawDistance3)
     private val rawDistance4 = hm.get(AnalogInput::class.java, "distance4")!!
     val distance4 = MaxbotixDistanceSensor(rawDistance4)
+
+    val poleSensor = hm.get(DistanceSensor::class.java, "poleDistance")!!
 
     val imu = hm.get(BNO055IMU::class.java, "imu")!!
 }
