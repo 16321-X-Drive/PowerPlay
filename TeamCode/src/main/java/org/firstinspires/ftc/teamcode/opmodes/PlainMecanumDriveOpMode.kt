@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
@@ -12,6 +13,7 @@ import kotlin.math.pow
 class PlainMecanumDriveOpMode : LinearOpModeEx() {
 
     @TeleOp
+    @Disabled
     class PlainMecanumDrive : LinearOpMode() {
         override fun runOpMode() = PlainMecanumDriveOpMode().runOpMode(this)
     }

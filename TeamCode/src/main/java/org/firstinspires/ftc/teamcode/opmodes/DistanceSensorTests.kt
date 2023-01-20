@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.opmodes
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
@@ -9,6 +10,7 @@ import org.firstinspires.ftc.teamcode.subsytems.Gyro
 class DistanceSensorTestsOpMode : LinearOpModeEx() {
 
     @TeleOp
+    @Disabled
     class DistanceSensorTests : LinearOpMode() {
         override fun runOpMode() = DistanceSensorTestsOpMode().runOpMode(this)
     }

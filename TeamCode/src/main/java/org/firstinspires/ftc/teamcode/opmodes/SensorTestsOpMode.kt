@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmodes
 
 import com.acmerobotics.dashboard.FtcDashboard
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
@@ -12,6 +13,7 @@ import kotlin.math.pow
 
 class SensorTestsOpMode : LinearOpModeEx() {
     @TeleOp
+    @Disabled
     class SensorTests : LinearOpMode() {
         override fun runOpMode() = SensorTestsOpMode().runOpMode(this)
     }

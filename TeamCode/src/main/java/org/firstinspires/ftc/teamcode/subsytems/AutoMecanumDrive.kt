@@ -1,14 +1,12 @@
 package org.firstinspires.ftc.teamcode.subsytems
 
+import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotor.RunMode
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
 import org.firstinspires.ftc.teamcode.hardware.Hardware
 import java.lang.Thread.sleep
-import kotlin.math.PI
-import kotlin.math.abs
-import kotlin.math.cos
-import kotlin.math.sin
+import kotlin.math.*
 
 class AutoMecanumDrive(hardware: Hardware) {
 
@@ -35,7 +33,7 @@ class AutoMecanumDrive(hardware: Hardware) {
 
     fun isBusy() = leftFront.isBusy
 
-    fun driveToPoleOrWait(dist: Double, theta: Double, power: Double, turn: Double = 0.0, maxDist: Double = 15.0, run: (Double) -> Unit = {}): Double {
+    fun driveToPoleOrWait(dist: Double, theta: Double, power: Double, turn: Double = 0.0, maxDist: Double = 25.0, run: (Double) -> Unit = {}): Pair<Double, Double> {
         setMode(RunMode.STOP_AND_RESET_ENCODER)
         drive(dist, theta, power, turn)
         setMode(RunMode.RUN_TO_POSITION)
@@ -45,12 +43,13 @@ class AutoMecanumDrive(hardware: Hardware) {
             Thread.yield()
         }
         run(poleSensor.getDistance(DistanceUnit.INCH))
-        sleep(200)
+//        sleep(200)
+        val distForward = poleSensor.getDistance(DistanceUnit.INCH)
         val distDriven = dist * (leftFront.currentPosition.toDouble() / leftFront.targetPosition.toDouble())
 
         setMode(RunMode.STOP_AND_RESET_ENCODER)
 
-        return distDriven
+        return distDriven to distForward
     }
 
     fun driveAndWait(dist: Double, theta: Double, power: Double, turn: Double = 0.0) {
@@ -61,6 +60,21 @@ class AutoMecanumDrive(hardware: Hardware) {
         while (isBusy()) Thread.yield()
         setMode(RunMode.STOP_AND_RESET_ENCODER)
     }
+
+    fun Double.coerceMagMax(max: Double) = this.sign * this.absoluteValue.coerceAtMost(max)
+    fun Double.coerceMagMin(min: Double) = this.sign * this.absoluteValue.coerceAtLeast(min)
+
+    fun turnToAngle(targetAngle: Double, gyro: Gyro, tolerance: Double = 0.005) {
+        setMode(RunMode.RUN_TO_POSITION)
+        while (true) {
+            val headingError = gyro.robotHeading - targetAngle
+            if (headingError < tolerance && headingError > -tolerance) break
+            drive(1000000.0, 0.0, 0.0, (headingError / 4.0).coerceMagMax(0.3).coerceMagMin(0.1))
+        }
+        drive(0.0, 0.0, 0.0, 0.0)
+        setMode(RunMode.STOP_AND_RESET_ENCODER)
+    }
+
 
     fun drive(dist: Double, theta: Double, power: Double, turn: Double) {
         // Taken from: https://www.youtube.com/watch?v=gnSW2QpkGXQ

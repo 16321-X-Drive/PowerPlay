@@ -7,15 +7,16 @@ import org.firstinspires.ftc.teamcode.subsytems.*
 import org.opencv.core.Rect
 import kotlin.math.PI
 
-class DetectPoleLeftAuto : LinearOpModeEx() {
+class DetectPoleRightAuto : LinearOpModeEx() {
     @Autonomous(preselectTeleOp = "MecanumDrive")
-    class DetectPoleLeft : LinearOpMode() {
-        override fun runOpMode() = DetectPoleLeftAuto().runOpMode(this)
+    class DetectPoleRight : LinearOpMode() {
+        override fun runOpMode() = DetectPoleRightAuto().runOpMode(this)
     }
 
-    fun region() = Rect(140, 150, 30, 15)
+    fun region() = Rect(140, 170, 30, 15)
     override fun isAuto() = true
 
+    val distances: Distances by lazy { Distances(hardware) }
     val gyro: Gyro by lazy { Gyro(hardware, this, 0.0) }
     val drive: AutoMecanumDrive by lazy { AutoMecanumDrive(hardware) }
     val claw: Claw by lazy { Claw(hardware) }
@@ -37,6 +38,7 @@ class DetectPoleLeftAuto : LinearOpModeEx() {
         telemetry.addData("decision", decision)
         telemetry.update()
 
+        distances.keepHeading(gyro.robotHeading)
         claw.isOpen = false // grab claw
 
         // push the signal out of the way
@@ -48,13 +50,14 @@ class DetectPoleLeftAuto : LinearOpModeEx() {
         sleep(1000)
 
         // Drive to pole
-        drive.driveAndWait(-15.0, PI /2, 0.25)
+        drive.driveAndWait(-15.0, -PI /2, 0.25)
         telemetry.addLine("Seeking...")
         telemetry.update()
-        val (right, f) = drive.driveToPoleOrWait(-30.0, PI /2, 0.15) {
+        val (right, f) = drive.driveToPoleOrWait(-30.0, -PI /2, 0.15) {
             telemetry.addData("dist", it)
             telemetry.update()
         }
+        drive.driveAndWait(-1.0, -PI /2, 0.25)
 
         // Drive forward
         drive.turnToAngle(0.0, gyro)
@@ -80,16 +83,16 @@ class DetectPoleLeftAuto : LinearOpModeEx() {
         when (decision) {
             Decision.Red -> {
                 // left
-                drive.driveAndWait(70.0 - right, PI /2, 0.25)
+                sleep(1000 * 10)
+                drive.driveAndWait(-35.0 - right, -PI /2, 0.25)
             }
             Decision.Blue -> {
                 // middle
-                drive.driveAndWait(12 - right, PI /2, 0.25)
+                drive.driveAndWait(14 - right, -PI /2, 0.25)
             }
             Decision.Green -> {
                 // right
-                sleep(1000 * 10)
-                drive.driveAndWait(-35.0 - right, PI /2, 0.25)
+                drive.driveAndWait(70.0 - right, -PI /2, 0.25)
             }
         }
     }

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.autos
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
 import org.firstinspires.ftc.teamcode.subsytems.*
@@ -11,6 +12,7 @@ import kotlin.math.abs
 class SimpleLeftAuto : LinearOpModeEx() {
 
     @Autonomous(preselectTeleOp = "MecanumDrive")
+    @Disabled
     class SimpleLeft : LinearOpMode() {
         override fun runOpMode() = SimpleLeftAuto().runOpMode(this)
     }

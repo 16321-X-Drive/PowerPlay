@@ -25,7 +25,7 @@ class Lift(hardware: Hardware) {
             TwoCone -> 200
             ThreeCone -> 400
             FourCone -> 560
-            FiveCone -> 720
+            FiveCone -> 700
             LowJunction -> 1800
             MediumJunction -> 3000
             HighJunction -> 4200

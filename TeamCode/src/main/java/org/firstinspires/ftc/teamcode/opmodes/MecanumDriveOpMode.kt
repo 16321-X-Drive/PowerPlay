@@ -77,3 +77,6 @@ class MecanumDriveOpMode : LinearOpModeEx() {
     }
 
 }
+
+val gyro by lazy {  }
+
