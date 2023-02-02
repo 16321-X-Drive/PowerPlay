@@ -31,18 +31,20 @@ class RRMecanumDriveOpMode : LinearOpModeEx() {
         override fun runOpMode() = RRMecanumDriveOpMode().runOpMode(this)
     }
 
-    val drive by lazy { MecanumDrive(hardware) }
+    lateinit var drive: MecanumDrive
+    lateinit var rrDrive: SampleMecanumDrive
     val lift by lazy { Lift(hardware) }
     val claw by lazy { Claw(hardware) }
     lateinit var gyro: Gyro
 
     var mode = Mode.Normal
-    var rrDrive: SampleMecanumDrive? = null
 
     override fun init() {
         super.init()
         gyro = Gyro(hardware, this, startAngle = RRAuto.finalHeading)
         gyro.waitForCalibration(debug = true)
+        drive = MecanumDrive(hardware)
+        rrDrive = SampleMecanumDrive(hardware, hardwareMap)
     }
 
     fun runDirection(direction: Direction) {
@@ -53,24 +55,24 @@ class RRMecanumDriveOpMode : LinearOpModeEx() {
             Direction.Back -> -PI / 2.0
         }
 
-        rrDrive = SampleMecanumDrive(this.hardwareMap)
+        rrDrive.configureMotors()
         val heading = gyro.robotHeading
-        val traj = rrDrive!!.trajectoryBuilder(Pose2d(0.0, 0.0, heading))
+        val traj = rrDrive.trajectoryBuilder(Pose2d(0.0, 0.0, heading))
             .lineToLinearHeading(Pose2d(0.0, 0.0, targetAngle))
             .build()
-        rrDrive!!.poseEstimate = Pose2d(0.0, 0.0, heading)
-        rrDrive!!.followTrajectoryAsync(traj)
+        rrDrive.poseEstimate = Pose2d(0.0, 0.0, heading)
+        rrDrive.followTrajectoryAsync(traj)
         mode = Mode.Following
     }
 
     fun runSpinBack(finalAngle: Double) {
-        rrDrive = SampleMecanumDrive(this.hardwareMap)
-        val traj = rrDrive!!.trajectoryBuilder(Pose2d(0.0, 0.0, PI / 2))
+        rrDrive.configureMotors()
+        val traj = rrDrive.trajectoryBuilder(Pose2d(0.0, 0.0, PI / 2))
             .back(15.0)
             .lineToSplineHeading(Pose2d(0.0, -35.0, finalAngle))
             .build()
-        rrDrive!!.poseEstimate = Pose2d(0.0, 0.0, PI / 2)
-        rrDrive!!.followTrajectoryAsync(traj)
+        rrDrive.poseEstimate = Pose2d(0.0, 0.0, PI / 2)
+        rrDrive.followTrajectoryAsync(traj)
         mode = Mode.Following
     }
 
@@ -131,11 +133,11 @@ class RRMecanumDriveOpMode : LinearOpModeEx() {
                 }
             }
             Mode.Following -> {
-                if (rrDrive?.isBusy == true && gamepad1.rightBumper.isDown) {
-                    rrDrive?.update()
+                if (rrDrive.isBusy && gamepad1.rightBumper.isDown) {
+                    rrDrive.update()
                 } else {
                     mode = Mode.Normal
-                    rrDrive = null
+                    drive.configureMotors()
                 }
             }
         }

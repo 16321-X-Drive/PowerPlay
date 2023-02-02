@@ -12,8 +12,14 @@ class MecanumDrive(hardware: Hardware) {
     private val rightBack = hardware.rightBack
 
     init {
+        configureMotors()
+    }
+
+    fun configureMotors() {
         rightFront.direction = DcMotorSimple.Direction.REVERSE
         rightBack.direction = DcMotorSimple.Direction.REVERSE
+        leftFront.direction = DcMotorSimple.Direction.FORWARD
+        leftBack.direction = DcMotorSimple.Direction.FORWARD
     }
 
     fun drive(theta: Double, power: Double, turn: Double) {
