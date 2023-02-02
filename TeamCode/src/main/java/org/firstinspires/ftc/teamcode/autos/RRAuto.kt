@@ -45,6 +45,7 @@ class RRAuto(private val d: Double) : LinearOpModeEx() {
     val STACK = Pose2d(d * 57.0, HEIGHT, Math.PI)
     val STACK_MIDPOINT = Pose2d(d * 45.0, HEIGHT, Math.PI)
     val MEDIUM_JUNCTION = Pose2d(d * 22.0, HEIGHT, -Math.PI / 2)
+    val LOW_JUNCTION = Pose2d(d * 46.0, HEIGHT, -Math.PI / 2)
     val START = Pose2d(d * 26.0, -62.5, Math.PI / 2)
 
     override fun init() {
@@ -86,8 +87,8 @@ class RRAuto(private val d: Double) : LinearOpModeEx() {
                     lift.height = Lift.Height.MediumJunction
                 }
                 .waitSeconds(1.25)
-                .back(15.0)
                 // Drop Second Cone
+                .back(15.0)
                 .lineToSplineHeading(MEDIUM_JUNCTION)
                 .forward(3.0)
                 .addTemporalMarker {
@@ -113,9 +114,9 @@ class RRAuto(private val d: Double) : LinearOpModeEx() {
                     lift.height = Lift.Height.MediumJunction
                 }
                 .waitSeconds(1.25)
-                .back(15.0)
                 // Drop Third Cone
-                .lineToSplineHeading(MEDIUM_JUNCTION)
+                .back(5.0)
+                .lineToSplineHeading(LOW_JUNCTION)
                 .forward(3.0)
                 .addTemporalMarker {
                     lift.offset = -600.0
