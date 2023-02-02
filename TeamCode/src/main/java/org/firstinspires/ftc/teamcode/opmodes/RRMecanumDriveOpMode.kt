@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.autos.RRAuto
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive
-import org.firstinspires.ftc.teamcode.hardware.Hardware
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
 import org.firstinspires.ftc.teamcode.subsytems.*
 import kotlin.math.PI
@@ -39,12 +38,14 @@ class RRMecanumDriveOpMode : LinearOpModeEx() {
 
     var mode = Mode.Normal
 
+    val timeout: Long = 7000
+
     override fun init() {
         super.init()
         gyro = Gyro(hardware, this, startAngle = RRAuto.finalHeading)
-        gyro.waitForCalibration(debug = true)
+        gyro.waitForCalibration(debug = true, timeout = timeout)
         drive = MecanumDrive(hardware)
-        rrDrive = SampleMecanumDrive(hardware, hardwareMap)
+        rrDrive = SampleMecanumDrive(hardware, hardwareMap, timeout)
     }
 
     fun runDirection(direction: Direction) {

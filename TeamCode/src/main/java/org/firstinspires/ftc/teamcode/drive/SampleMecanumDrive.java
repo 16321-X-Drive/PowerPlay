@@ -77,10 +77,10 @@ public class SampleMecanumDrive extends MecanumDrive {
     private VoltageSensor batteryVoltageSensor;
 
     public SampleMecanumDrive(HardwareMap hardwareMap) {
-        this(new Hardware(hardwareMap), hardwareMap);
+        this(new Hardware(hardwareMap), hardwareMap, 9999999);
     }
 
-    public SampleMecanumDrive(Hardware hardware, HardwareMap hardwareMap) {
+    public SampleMecanumDrive(Hardware hardware, HardwareMap hardwareMap, long time) {
         super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
 
         follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID,
@@ -102,7 +102,8 @@ public class SampleMecanumDrive extends MecanumDrive {
         parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
         parameters.loggingEnabled = true;
         imu.initialize(parameters);
-        while (!imu.isGyroCalibrated()) Thread.yield();
+        long start = System.currentTimeMillis();
+        while (!imu.isGyroCalibrated() && (System.currentTimeMillis() - start) < time) Thread.yield();
 
         leftFront = hardware.getLeftFront();
         leftRear = hardware.getLeftBack();

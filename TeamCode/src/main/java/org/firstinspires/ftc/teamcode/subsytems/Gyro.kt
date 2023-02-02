@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.subsytems
 import com.qualcomm.hardware.bosch.BNO055IMU
 import org.firstinspires.ftc.teamcode.hardware.Hardware
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
+import java.util.*
 
 class Gyro(hardware: Hardware, private val opMode: LinearOpModeEx?, private var startAngle: Double = 0.0) {
 
@@ -16,13 +17,14 @@ class Gyro(hardware: Hardware, private val opMode: LinearOpModeEx?, private var 
         imu.initialize(params)
     }
 
-    fun waitForCalibration(debug: Boolean = false) {
+    fun waitForCalibration(debug: Boolean = false, timeout: Long = 99999999) {
         if (debug) {
             opMode?.telemetry?.addData("imu", "calibrating")
             opMode?.telemetry?.update()
         }
 
-        while (opMode?.isStopRequested != true && !imu.isGyroCalibrated) {
+        val start = System.currentTimeMillis();
+        while (opMode?.isStopRequested != true && !imu.isGyroCalibrated && (System.currentTimeMillis() - start) < timeout) {
             opMode?.idle()
         }
         startAngle -= imu.angularOrientation.firstAngle.toDouble()
