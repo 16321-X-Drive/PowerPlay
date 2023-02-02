@@ -43,9 +43,14 @@ class RRMecanumDriveOpMode : LinearOpModeEx() {
     override fun init() {
         super.init()
         gyro = Gyro(hardware, this, startAngle = RRAuto.finalHeading)
-        gyro.waitForCalibration(debug = true, timeout = timeout)
+        val timedOut = gyro.waitForCalibration(debug = true, timeout = timeout)
         drive = MecanumDrive(hardware)
         rrDrive = SampleMecanumDrive(hardware, hardwareMap, timeout)
+
+        if (timedOut) {
+            telemetry.addLine("!! WARNING IMU TIMED OUT !!")
+            telemetry.update()
+        }
     }
 
     fun runDirection(direction: Direction) {

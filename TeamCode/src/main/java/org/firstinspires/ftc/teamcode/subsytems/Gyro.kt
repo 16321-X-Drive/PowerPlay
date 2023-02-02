@@ -17,7 +17,7 @@ class Gyro(hardware: Hardware, private val opMode: LinearOpModeEx?, private var 
         imu.initialize(params)
     }
 
-    fun waitForCalibration(debug: Boolean = false, timeout: Long = 99999999) {
+    fun waitForCalibration(debug: Boolean = false, timeout: Long = 99999999): Boolean {
         if (debug) {
             opMode?.telemetry?.addData("imu", "calibrating")
             opMode?.telemetry?.update()
@@ -27,12 +27,15 @@ class Gyro(hardware: Hardware, private val opMode: LinearOpModeEx?, private var 
         while (opMode?.isStopRequested != true && !imu.isGyroCalibrated && (System.currentTimeMillis() - start) < timeout) {
             opMode?.idle()
         }
+        val timedOut = (System.currentTimeMillis() - start) >= timeout
         startAngle -= imu.angularOrientation.firstAngle.toDouble()
 
         if (debug) {
             opMode?.telemetry?.addData("imu", "calibrated")
             opMode?.telemetry?.update()
         }
+
+        return timedOut
     }
 
     val robotHeading: Double get() = startAngle + imu.angularOrientation.firstAngle.toDouble()
