@@ -22,10 +22,10 @@ class Lift(hardware: Hardware) {
 
         fun ticks() = when (this) {
             Down -> 0
-            TwoCone -> 200
-            ThreeCone -> 400
-            FourCone -> 560
-            FiveCone -> 700
+            TwoCone -> 150
+            ThreeCone -> 350
+            FourCone -> 500
+            FiveCone -> 650
             LowJunction -> 1800
             MediumJunction -> 3000
             HighJunction -> 4200

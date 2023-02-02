@@ -13,7 +13,7 @@ import kotlin.math.sign
 
 class DoubleConeLeftAuto : LinearOpModeEx() {
 
-    @Autonomous(preselectTeleOp = "MecanumDrive")
+    @Autonomous(preselectTeleOp = "RRMecanumDrive")
     @Disabled
     class DoubleConeLeft : LinearOpMode() {
         override fun runOpMode() = DoubleConeLeftAuto().runOpMode(this)
