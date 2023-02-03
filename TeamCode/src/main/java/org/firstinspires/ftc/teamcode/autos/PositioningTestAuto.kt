@@ -18,7 +18,7 @@ import kotlin.math.abs
 class PositioningTestAuto : LinearOpModeEx() {
 
     @Autonomous
-    @Disabled
+    @Disabled()
     class PositioningTest : LinearOpMode() {
         override fun runOpMode() = PositioningTestAuto().runOpMode(this)
     }

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.opmodes
 import com.acmerobotics.roadrunner.geometry.Pose2d
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
-import org.firstinspires.ftc.teamcode.autos.RRAuto
+import org.firstinspires.ftc.teamcode.autos.RRLeftAuto
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive
 import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
 import org.firstinspires.ftc.teamcode.subsytems.*
@@ -42,7 +42,7 @@ class RRMecanumDriveOpMode : LinearOpModeEx() {
 
     override fun init() {
         super.init()
-        gyro = Gyro(hardware, this, startAngle = RRAuto.finalHeading)
+        gyro = Gyro(hardware, this, startAngle = RRLeftAuto.finalHeading)
         val timedOut = gyro.waitForCalibration(debug = true, timeout = timeout)
         drive = MecanumDrive(hardware)
         rrDrive = SampleMecanumDrive(hardware, hardwareMap, timeout)

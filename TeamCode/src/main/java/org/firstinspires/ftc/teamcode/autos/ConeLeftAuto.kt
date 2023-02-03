@@ -10,7 +10,7 @@ import kotlin.math.abs
 
 class ConeLeftAuto : LinearOpModeEx() {
 
-    @Autonomous(preselectTeleOp = "RRMecanumDrive")
+    @Autonomous(preselectTeleOp = PRESELECTED_TELEOP)
     class ConeLeft : LinearOpMode() {
         override fun runOpMode() = ConeLeftAuto().runOpMode(this)
     }

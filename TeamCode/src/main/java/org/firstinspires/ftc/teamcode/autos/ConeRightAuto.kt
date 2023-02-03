@@ -9,7 +9,7 @@ import kotlin.math.PI
 
 class ConeRightAuto : LinearOpModeEx() {
 
-    @Autonomous(preselectTeleOp = "RRMecanumDrive")
+    @Autonomous(preselectTeleOp = PRESELECTED_TELEOP)
     class ConeRight : LinearOpMode() {
         override fun runOpMode() = ConeRightAuto().runOpMode(this)
     }

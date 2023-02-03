@@ -11,7 +11,7 @@ import kotlin.math.abs
 
 class SimpleLeftAuto : LinearOpModeEx() {
 
-    @Autonomous(preselectTeleOp = "RRMecanumDrive")
+    @Autonomous(preselectTeleOp = PRESELECTED_TELEOP)
     @Disabled
     class SimpleLeft : LinearOpMode() {
         override fun runOpMode() = SimpleLeftAuto().runOpMode(this)

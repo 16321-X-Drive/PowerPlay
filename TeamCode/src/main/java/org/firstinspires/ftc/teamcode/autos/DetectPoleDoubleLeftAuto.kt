@@ -9,7 +9,7 @@ import org.opencv.core.Rect
 import kotlin.math.PI
 
 class DetectPoleDoubleLeftAuto : LinearOpModeEx() {
-    @Autonomous(preselectTeleOp = "RRMecanumDrive")
+    @Autonomous(preselectTeleOp = PRESELECTED_TELEOP)
     @Disabled
     class DetectPoleDoubleLeft : LinearOpMode() {
         override fun runOpMode() = DetectPoleDoubleLeftAuto().runOpMode(this)

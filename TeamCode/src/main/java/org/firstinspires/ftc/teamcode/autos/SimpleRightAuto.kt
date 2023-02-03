@@ -13,7 +13,7 @@ import kotlin.math.abs
 
 class SimpleRightAuto : LinearOpModeEx() {
 
-    @Autonomous
+    @Autonomous(preselectTeleOp = PRESELECTED_TELEOP)
     @Disabled
     class SimpleRight : LinearOpMode() {
         override fun runOpMode() = SimpleRightAuto().runOpMode(this)

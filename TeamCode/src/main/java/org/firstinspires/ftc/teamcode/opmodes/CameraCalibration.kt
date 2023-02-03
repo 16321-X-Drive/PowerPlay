@@ -7,17 +7,15 @@ import org.firstinspires.ftc.teamcode.lib.LinearOpModeEx
 import org.firstinspires.ftc.teamcode.subsytems.CameraDetector
 import org.opencv.core.Rect
 
-
 class CameraCalibrationOpMode : LinearOpModeEx() {
 
     @TeleOp
-    @Disabled
     class CameraCalibration : LinearOpMode() {
         override fun runOpMode() = CameraCalibrationOpMode().runOpMode(this)
     }
 
     companion object {
-        val CAMERA_AREA = Rect(140, 170, 30, 15)
+        val CAMERA_AREA = Rect(140, 150, 30, 15)
     }
 
     val detector: CameraDetector by lazy { CameraDetector(hardware, CAMERA_AREA) }
